@@ -13,7 +13,13 @@ def lambda_handler(event, context):
     logger.info(context)
     logger.info("Event coming from API gateway : %s", event)
 
-    reservationRequest = transformEvent(event)
+    body = None
+    if ('body' in event) and isinstance(event['body'], str):
+        body = json.loads(event['body'])
+    else:
+        body = event
+
+    reservationRequest = transformEvent(body)
     logger.info('Trying to convert object to XML file')
 
     xmlText = convertRequestToXML(reservationRequest)
@@ -27,12 +33,12 @@ def lambda_handler(event, context):
         logger.info('Uploading success')
         return {
             'statusCode': 200,
-            'URL': json.dumps(text)
+            'body': json.dumps(text)
         }
 
     else:
         logger.info('Error Uploading')
         return {
             'statusCode': 500,
-            'message': json.dumps(text)
+            'body': json.dumps(text)
         }
