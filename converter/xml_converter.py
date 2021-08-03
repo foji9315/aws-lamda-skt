@@ -34,16 +34,16 @@ def build_xml_body(reservation, xml_body):
     hotel = ET.SubElement(xml_body, 'hotel')
     build_xml_hotel(reservation.hotel, hotel)
 
-    reservation_id = ET.SubElement(xml_body, 'reservation_id')
+    reservation_id = ET.SubElement(xml_body, 'reservationId')
     reservation_id.text = str(reservation.reservationId)
 
     reservations = ET.SubElement(xml_body, 'reservations')
     build_xml_reservations(reservation.confirmationNumbers, reservations)
 
-    last_update_timestamp = ET.SubElement(xml_body, 'last_update_timestamp')
+    last_update_timestamp = ET.SubElement(xml_body, 'lastUpdateTimestamp')
     last_update_timestamp.text = reservation.lastUpdateTimestamp
 
-    last_update_operator_id = ET.SubElement(xml_body, 'last_update_operator_id')
+    last_update_operator_id = ET.SubElement(xml_body, 'lastUpdateOperatorId')
     last_update_operator_id.text = reservation.lastUpdateOperatorId
 
 
@@ -69,8 +69,8 @@ def build_xml_reservations(confirmation_numbers, xml_reservations):
 def build_xml_info(guest, xml_info):
     names = guest.split(" ")
 
-    first_name = ET.SubElement(xml_info, 'first_name')
+    first_name = ET.SubElement(xml_info, 'firstName')
     first_name.text = names[0]
 
-    last_name = ET.SubElement(xml_info, 'last_name')
+    last_name = ET.SubElement(xml_info, 'lastName')
     last_name.text = names[1]
