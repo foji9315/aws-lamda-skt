@@ -1,9 +1,9 @@
 import json
 import logging
 
-from converter.xmlConverter import convertRequestToXML
-from repository.xmlRepository import uploadXML
-from transformer.requestTransformer import transformEvent
+from converter.xml_converter import convert_request_to_xml
+from repository.xml_repository import upload_xml
+from transformer.request_transformer import transform_event
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -19,17 +19,17 @@ def lambda_handler(event, context):
     else:
         body = event
 
-    reservationRequest = transformEvent(body)
+    reservation_request = transform_event(body)
     logger.info('Trying to convert object to XML file')
 
-    xmlText = convertRequestToXML(reservationRequest)
-    logger.info('Result of conversion %s', xmlText)
+    xml_text = convert_request_to_xml(reservation_request)
+    logger.info('Result of conversion %s', xml_text)
 
-    isCompleted, text = uploadXML(xmlText,
-                                  "skt-task",
-                                  'reservation-{}.xml'.format(reservationRequest.reservation.reservationId)
-                                  )
-    if isCompleted:
+    is_completed, text = upload_xml(xml_text,
+                                    "skt-task",
+                                    'reservation-{}.xml'.format(reservation_request.reservation.reservationId)
+                                    )
+    if is_completed:
         logger.info('Uploading success')
         return {
             'statusCode': 200,

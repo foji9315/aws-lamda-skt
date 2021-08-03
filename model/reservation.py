@@ -1,40 +1,41 @@
 class Reservation(object):
     def __init__(self,
                  hotel=None,
-                 reservationId=None,
-                 confirmationNumbers=None,
-                 lastUpdateTimestamp=None,
-                 lastUpdateOperatorId=None):
-        if confirmationNumbers is None:
-            confirmationNumbers = []
+                 reservation_id=None,
+                 confirmation_numbers=None,
+                 last_update_timestamp=None,
+                 last_update_operator_id=None):
+        if confirmation_numbers is None:
+            confirmation_numbers = []
 
         self.hotel = hotel
-        self.reservationId = reservationId
-        self.confirmationNumbers = confirmationNumbers
-        self.lastUpdateTimestamp = lastUpdateTimestamp
-        self.lastUpdateOperatorId = lastUpdateOperatorId
+        self.reservationId = reservation_id
+        self.confirmationNumbers = confirmation_numbers
+        self.lastUpdateTimestamp = last_update_timestamp
+        self.lastUpdateOperatorId = last_update_operator_id
 
-    def appendConfirmationNumber(self, confirmationNumber):
-        self.confirmationNumbers.append(confirmationNumber)
+    def append_confirmation_number(self, confirmation_number):
+        self.confirmationNumbers.append(confirmation_number)
 
     def __str__(self):
+        confirmation_numbers = ",".join(map(str, self.confirmationNumbers))
         return """Reservation(
             hotel : {}, 
             reservationId : {}, 
-            confirmationNumbers : {}, 
+            confirmationNumbers : [{}], 
             lastUpdateTimestamp : {}, 
             lastUpdateOperatorId : {})""".format(
             self.hotel,
             self.reservationId,
-            self.confirmationNumbers,
+            confirmation_numbers,
             self.lastUpdateTimestamp,
             self.lastUpdateOperatorId
         )
 
 
 class ConfirmationNumber(object):
-    def __init__(self, confirmationNumber, source, guest):
-        self.confirmationNumber = confirmationNumber
+    def __init__(self, confirmation_number, source, guest):
+        self.confirmationNumber = confirmation_number
         self.source = source
         self.guest = guest
 
