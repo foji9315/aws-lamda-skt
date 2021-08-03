@@ -14,9 +14,6 @@ class Reservation(object):
         self.lastUpdateTimestamp = last_update_timestamp
         self.lastUpdateOperatorId = last_update_operator_id
 
-    def append_confirmation_number(self, confirmation_number):
-        self.confirmationNumbers.append(confirmation_number)
-
     def __str__(self):
         confirmation_numbers = ",".join(map(str, self.confirmationNumbers))
         return """Reservation(
