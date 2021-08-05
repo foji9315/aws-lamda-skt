@@ -36,7 +36,7 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'body': json.dumps(text)
         }
-    except ClientError as e:
+    except Exception as e:
         logging.error(e)
         return {
             'statusCode': 500,
