@@ -1,0 +1,28 @@
+#!/bin/bash
+
+echo $'/n************** Zipping code  **************'
+zip -r ./aws-task.zip ./src/*
+zip -r ./aws-task.zip ./test/*
+wait
+echo '---------- Zipping ends ----------'
+
+echo $'\n************** Running script to update AWS CloudFormation template **************'
+aws cloudformation deploy \
+    --stack-name skt-task \
+    --template-file template.yaml \
+    --capabilities CAPABILITY_NAMED_IAM
+wait
+echo '---------- Template create/update ends ----------'
+
+echo $'\n************** Updating lambda code **************'
+aws lambda update-function-code \
+    --function-name  lambda-function \
+    --zip-file fileb://aws-task.zip
+echo '---------- Lambda updating ends ----------'
+
+echo $'\n************** Reading endpoint **************'
+aws cloudformation describe-stacks --query Stacks[].Outputs[*].[OutputKey,OutputValue] --output text
+echo '------------------------------------------'
+
+echo $'\n************** Removing temporal files **************'
+rm aws-task.zip

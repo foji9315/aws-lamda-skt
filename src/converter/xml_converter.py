@@ -1,9 +1,5 @@
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
-import logging
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 
 def convert_request_to_xml(reservation_request):
