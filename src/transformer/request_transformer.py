@@ -1,5 +1,5 @@
 from src.model.header import Header
-from src.model.reservation import *
+from src.model.reservation import Reservation, Hotel, ConfirmationNumber
 from src.model.request import Request
 from src.config.loggerconf import logger
 

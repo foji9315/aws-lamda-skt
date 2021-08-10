@@ -1,8 +1,6 @@
 import json
 import os
 
-from botocore.exceptions import ClientError
-
 from src.config.loggerconf import logger
 from src.converter.xml_converter import convert_request_to_xml
 from src.model.response import Response
@@ -38,8 +36,8 @@ def lambda_handler(event, context):
         logger.info("Uploading success")
         response = Response(200, body)
 
-    except ClientError as e:
-        logger.info("Error uploading %s".format(e))
+    except Exception as e:
+        logger.info("Error uploading {}".format(e))
         response = Response(500, 'Error Uploading')
 
     finally:
