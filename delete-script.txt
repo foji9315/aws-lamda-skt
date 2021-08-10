@@ -1,0 +1,14 @@
+#!/bin/bash
+
+clear
+echo $'/n ************** Empty bucket  **************'
+aws s3 rm s3://skt-task-bucket --recursive
+wait
+echo '---------- Empty ends ----------'
+
+echo $'/n ************** Delete stack  **************'
+aws cloudformation delete-stack \
+    --stack-name skt-task
+echo 'Waiting...'
+wait
+echo '---------- delete ends ----------'

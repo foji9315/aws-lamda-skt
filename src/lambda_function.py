@@ -33,8 +33,8 @@ def lambda_handler(event, context):
                           bucket_name,
                           'reservation-{}.xml'.format(reservation_request.reservation.reservationId)
                           )
-        logger.info("Uploading success")
-        response = Response(200, body)
+        response = Response(201, body)
+        logger.info("Uploading success and response : {}".format(response))
 
     except Exception as e:
         logger.info("Error uploading {}".format(e))
