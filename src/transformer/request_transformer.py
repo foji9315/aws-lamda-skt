@@ -1,23 +1,17 @@
-import logging
-
-from model.header import Header
-from model.request import Request
-from model.reservation import ConfirmationNumber
-from model.reservation import Hotel
-from model.reservation import Reservation
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+from src.model.header import Header
+from src.model.reservation import Reservation, Hotel, ConfirmationNumber
+from src.model.request import Request
+from src.config.loggerconf import logger
 
 
 def transform_event(body):
-    header = transform_header(body["header"])
-    logger.info("header built %s", header)
+    xml_header = transform_header(body["header"])
+    logger.info("header built {}".format(xml_header))
 
-    reservation = transform_reservation(body["reservation"])
-    logger.info("Reservation built %s", reservation)
+    xml_reservation = transform_reservation(body["reservation"])
+    logger.info("Reservation built {}".format(xml_reservation))
 
-    return Request(header, reservation)
+    return Request(xml_header, xml_reservation)
 
 
 def transform_header(header_request):
@@ -26,16 +20,20 @@ def transform_header(header_request):
 
 def transform_reservation(reservation_request):
     hotel = transform_hotel(reservation_request['hotel'])
-    logger.info("Hotel created %s", hotel)
+    logger.debug("Hotel created {}".format(hotel))
 
     confirmation_numbers = transform_confirmation_numbers(reservation_request['confirmationNumbers'])
-    logger.info("This is the list of ConfirmationNumbers %s", confirmation_numbers)
+    logger.debug("This is the list of ConfirmationNumbers {}".format(confirmation_numbers))
 
     reservation_id = reservation_request['reservationId']
     last_update_timestamp = reservation_request['lastUpdateTimestamp']
     last_update_operator_id = reservation_request['lastUpdateOperatorId']
 
-    return Reservation(hotel, reservation_id, confirmation_numbers, last_update_timestamp, last_update_operator_id)
+    return Reservation(hotel,
+                       reservation_id,
+                       confirmation_numbers,
+                       last_update_timestamp,
+                       last_update_operator_id)
 
 
 def transform_hotel(hotel_request):
@@ -44,7 +42,7 @@ def transform_hotel(hotel_request):
 
 def transform_confirmation_numbers(request_confirmation_numbers):
     list_of_confirmation = []
-    logger.info("This is the number of confirmationNumber to convert : %s", len(request_confirmation_numbers))
+    logger.debug("This is the number of confirmationNumber to convert : {}".format(len(request_confirmation_numbers)))
     for item in request_confirmation_numbers:
         list_of_confirmation.append(
             ConfirmationNumber(item['confirmationNumber'], item['source'], item['guest'])
