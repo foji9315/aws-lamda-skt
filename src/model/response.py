@@ -12,3 +12,6 @@ class Response(object):
             "statusCode": self.statusCode,
             "body": json.dumps(self.body)
         }
+
+    def __str__(self):
+        return ' "status" : {} , "body" : {} '.format(self.statusCode, self.body)

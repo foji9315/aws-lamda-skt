@@ -15,7 +15,7 @@ def transform_event(body):
 
 
 def transform_header(header_request):
-    return Header(header_request['echoToken'], header_request['timestamp'])
+    return Header(header_request['user'], header_request['echoToken'], header_request['timestamp'])
 
 
 def transform_reservation(reservation_request):

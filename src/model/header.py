@@ -1,7 +1,8 @@
 class Header(object):
-    def __init__(self, echo_token=None, timestamp=None):
+    def __init__(self, user=None, echo_token=None, timestamp=None):
+        self.user = user
         self.echoToken = echo_token
         self.timestamp = timestamp
 
     def __str__(self):
-        return "echoToken : {}, timestamp : {}".format(self.echoToken, self.timestamp)
+        return "user : {}, echoToken : {}, timestamp : {}".format(self.user, self.echoToken, self.timestamp)
