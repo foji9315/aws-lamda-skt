@@ -37,8 +37,9 @@ def lambda_handler(event, context):
         logger.info("Uploading success and response : {}".format(response))
 
     except Exception as e:
-        logger.info("Error uploading {}".format(e))
-        response = Response(500, 'Error Uploading')
+        error_message = "Error uploading with description : {}".format(e)
+        logger.error(error_message)
+        response = Response(500, error_message)
 
     finally:
         return response.get_response()

@@ -5,8 +5,6 @@ class Reservation(object):
                  confirmation_numbers=None,
                  last_update_timestamp=None,
                  last_update_operator_id=None):
-        if confirmation_numbers is None:
-            confirmation_numbers = []
 
         self.hotel = hotel
         self.reservationId = reservation_id

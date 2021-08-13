@@ -4,7 +4,7 @@ clear
 echo $'/n************** Testing code  **************'
 pytest --cov=src test/ --cov-report html
 wait
-echo '---------- Zipping ends ----------'
+echo '---------- Testing ends ----------'
 
 echo $'/n************** Zipping code  **************'
 zip -r ./aws-task.zip ./src/*

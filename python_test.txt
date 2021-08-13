@@ -1,0 +1,7 @@
+#!/bin/bash
+
+clear
+echo $'/n************** Testing code  **************'
+pytest --cov=src test/ --cov-report html
+wait
+echo '---------- Testing ends ----------'
